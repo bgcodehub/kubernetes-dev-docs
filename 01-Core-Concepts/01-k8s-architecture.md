@@ -1,6 +1,6 @@
 # Kubernetes Architecture & Overview
 
-## Introduction
+## Overview
 
 Kubernetes is a powerful orchestration tool designed to automate the deployment, scaling, and management of containerized applications. This documentation provides a detailed overview of the Kubernetes architecture and components, ensuring developers understand how to interact with and deploy applications within a Kubernetes cluster.
 

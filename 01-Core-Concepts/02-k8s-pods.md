@@ -1,6 +1,6 @@
 # **Kubernetes Pods Overview**
 
-## Introduction
+## Overview
 
 In Kubernetes, the ultimate goal is to deploy applications in the form of containers on worker nodes within a cluster. However, Kubernetes does not directly deploy containers onto nodes. Instead, containers are encapsulated into an object known as a **Pod**. Pods play a critical role in Kubernetes architecture, providing a level of abstraction that simplifies scaling, communication, and management of containerized applications.
 
