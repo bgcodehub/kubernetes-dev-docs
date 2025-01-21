@@ -1,7 +1,7 @@
 # Liveness Probes in Kubernetes
 
 ## Overview
-In this section, we explore **Liveness Probes** in Kubernetes, a mechanism that helps determine whether a container within a Pod is functioning correctly. These probes are critical for maintaining application reliability and availability in a Kubernetes environment.
+**Liveness Probes** in Kubernetes is a mechanism that helps determine whether a container within a Pod is functioning correctly. These probes are critical for maintaining application reliability and availability in a Kubernetes environment.
 
 ## The Problem
 Imagine you run a container using Docker. If the application crashes or the process exits, Docker does not automatically restart the container. This leaves the service unavailable until manual intervention occurs.
