@@ -14,6 +14,10 @@ Network namespaces create isolated network environments similar to how namespace
 
 When a network namespace is created, it starts with no network interfaces apart from a default loopback interface.
 
+![Linux Bridge](../assets/images/linux_bridge.png)
+
+The image above illustrates a Linux bridge setup that connects multiple network namespaces. The bridge (`v-net-0`) allows isolated networks (`192.168.15.x`) to communicate while remaining segregated from the main LAN (`192.168.1.0`).
+
 ---
 
 ## Creating and Managing Network Namespaces
@@ -77,6 +81,10 @@ ip netns exec blue ip link set veth-blue up
 ```
 Now the interfaces are active.
 
+![Namespace Isolation](../assets/images/ns_iso.png)
+
+The image above demonstrates a failed ping attempt due to missing routing rules. The `blue` namespace cannot communicate with external networks as its routing table only allows communication within its subnet.
+
 ### Testing Connectivity
 ```bash
 ip netns exec red ping -c 3 192.168.15.2
@@ -100,6 +108,10 @@ ip link set veth-red master br0
 ip link set veth-blue master br0
 ```
 Now both namespaces are part of the same bridge network.
+
+![Namespace Routing](../assets/images/ns_route.png)
+
+This image shows a corrected routing table where the `blue` namespace can now reach the external network via the gateway `192.168.15.5`. The `ping` test is successful, confirming connectivity.
 
 ---
 
