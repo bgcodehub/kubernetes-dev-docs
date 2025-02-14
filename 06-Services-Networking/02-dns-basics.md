@@ -71,7 +71,7 @@ systemctl restart systemd-resolved
 
 To test DNS name resolution, use the `nslookup` or `dig` command:
 
-![Testing DNS Resolution](../assets/images/dns_2.png
+![Testing DNS Resolution](../assets/images/dns_2.png)
 
 This image represents the process of testing DNS resolution. The system queries a DNS server to resolve domain names into IP addresses, confirming proper DNS configuration and connectivity.
 
