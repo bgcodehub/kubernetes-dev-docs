@@ -11,6 +11,12 @@ A Kubernetes cluster consists of multiple nodes, categorized into master and wor
 
 Proper configuration of firewalls and network security groups is necessary to allow communication between the control plane components.
 
+![Pod Network Configuration](../assets/images/pod_net.png)
+
+The image above illustrates how Kubernetes assigns subnets to each node, enabling pod communication across multiple nodes.
+
+---
+
 ## Pod Networking Model
 Networking at the pod level differs from traditional host-based networking. Kubernetes follows a flat network model where each pod gets a unique IP address, allowing direct communication between pods without the need for NAT.
 
@@ -20,6 +26,12 @@ Kubernetes networking requires:
 2. Pods within a node to communicate with each other using their assigned IPs.
 3. Pods on different nodes to communicate without requiring additional NAT configurations.
 4. Seamless integration of networking solutions, ensuring compatibility across various cluster setups.
+
+![Network Automation with Scripts](../assets/images/script.png)
+
+This image demonstrates an automated script (`net-script.sh`) for setting up veth pairs, assigning IP addresses, and configuring routes for pod communication.
+
+---
 
 ## Implementing Pod Networking
 Kubernetes does not come with a built-in networking solution; instead, it relies on networking plugins based on the Container Network Interface (CNI) specification.
@@ -36,12 +48,18 @@ A common approach to establishing pod networking is through **bridge networks**.
 3. Attaching pod network namespaces to the bridge using **virtual Ethernet interfaces (veth pairs)**.
 4. Setting up **routes** for inter-node communication.
 
+![Bridge Network Setup](../assets/images/bridge_net.png)
+
+The image above depicts how bridge networks facilitate pod networking by connecting different nodes through virtual Ethernet interfaces.
+
 #### Example Network Bridge Configuration
 ```sh
 ip link add name cni0 type bridge
 ip addr add 10.244.1.1/24 dev cni0
 ip link set cni0 up
 ```
+
+---
 
 ## Inter-Node Communication
 Pods in different nodes communicate using a combination of:
@@ -55,6 +73,12 @@ Example:
 ```sh
 ip route add 10.244.2.0/24 via 192.168.1.12
 ```
+
+![Routing Between Nodes](../assets/images/route_nodes.png)
+
+This image showcases the routing configuration necessary for inter-node pod communication within a Kubernetes cluster.
+
+---
 
 ## Automating Pod Network Configuration
 Manually configuring networking components is impractical for large clusters. Instead, Kubernetes relies on **CNI plugins** to automate this process. CNI plugins handle:
@@ -80,6 +104,11 @@ Example CNI configuration snippet:
 }
 ```
 
+![Networking Model](../assets/images/flannel.png)
+
+The image above highlights different CNI solutions, including **Flannel, Calico, Cilium, and NSX**, which enable seamless pod communication across nodes.
+
+---
+
 ## Conclusion
 Kubernetes pod networking ensures seamless communication across the cluster, with each pod having a unique IP address. By leveraging CNI plugins and efficient routing mechanisms, Kubernetes enables scalable, flexible, and secure networking for containerized applications. Understanding these networking fundamentals is critical for deploying and managing production-grade Kubernetes clusters.
-
