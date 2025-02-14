@@ -14,6 +14,82 @@ Networking is a fundamental aspect of system administration and application deve
 
 ---
 
+## Switching
+Switching allows communication between devices on the same network without involving a router. The following diagram illustrates how two devices (A and B) communicate over the same subnet through a switch:
+
+![Switching](../assets/images/switching.png)
+
+### Configuring a Network Interface for Switching
+To bring up the interface and assign an IP address:
+
+```bash
+ip link set eth0 up
+ip addr add 192.168.1.10/24 dev eth0  # For machine A
+ip addr add 192.168.1.11/24 dev eth0  # For machine B
+```
+
+To verify connectivity, use `ping`:
+
+```bash
+ping 192.168.1.11  # From machine A to B
+```
+
+If the switch is functioning correctly, machine A should receive replies from B, indicating successful local network communication.
+
+---
+
+## Routing
+Routing determines how packets move from one network to another. Unlike switching, routing is used when devices need to communicate across different subnets.
+
+The diagram below shows a network scenario where devices in `192.168.1.0/24` need to communicate with devices in `192.168.2.0/24` through a router.
+
+![Routing](../assets/images/routing.png)
+
+### Viewing and Configuring Routes
+To display the current routing table:
+
+```bash
+ip route show
+```
+
+To add a route so that packets for `192.168.2.0/24` are sent via `192.168.1.1`:
+
+```bash
+ip route add 192.168.2.0/24 via 192.168.1.1
+```
+
+This configuration ensures that packets from `192.168.1.0/24` can reach the `192.168.2.0/24` network through the router at `192.168.1.1`.
+
+---
+
+## Gateways
+A gateway connects different networks, acting as an entry and exit point for data transmission. In the following diagram, a gateway is used to bridge communication between networks `192.168.1.0/24` and `192.168.2.0/24`.
+
+![Gateway](../assets/images/gateway.png)
+
+### Configuring a Gateway
+To set up a gateway for traffic forwarding, enable IP forwarding on the Linux router:
+
+```bash
+echo 1 > /proc/sys/net/ipv4/ip_forward
+```
+
+To make this setting persistent across reboots, edit `/etc/sysctl.conf` and add:
+
+```bash
+net.ipv4.ip_forward = 1
+```
+
+Then, apply the changes:
+
+```bash
+sysctl -p
+```
+
+With this configuration, the router will forward packets between the networks.
+
+---
+
 ## Configuring DNS in Linux
 DNS settings in Linux can be managed using the `/etc/resolv.conf` file or through network manager tools. To check the current DNS configuration:
 
@@ -32,71 +108,6 @@ For systems using `systemd-resolved`, you can update DNS settings using:
 
 ```bash
 systemctl restart systemd-resolved
-```
-
----
-
-## Network Interfaces and Configuration
-Linux systems use network interfaces (e.g., `eth0`, `wlan0`) to communicate over the network. To view available interfaces:
-
-```bash
-ip link show
-```
-
-Assigning an IP address to an interface:
-
-```bash
-ip addr add 192.168.1.100/24 dev eth0
-```
-
-To check the IP address configuration:
-
-```bash
-ip addr show
-```
-
-To configure a persistent network interface, edit the `/etc/network/interfaces` file (Debian-based systems) or `/etc/sysconfig/network-scripts/ifcfg-eth0` (RHEL-based systems).
-
----
-
-## Routing and Gateways
-Routing allows communication between different networks. To display the current routing table:
-
-```bash
-ip route show
-```
-
-To add a static route:
-
-```bash
-ip route add 192.168.2.0/24 via 192.168.1.1
-```
-
-To set a default gateway:
-
-```bash
-ip route add default via 192.168.1.1
-```
-
----
-
-## Network Packet Forwarding
-By default, Linux does not forward packets between interfaces. To enable packet forwarding:
-
-```bash
-echo 1 > /proc/sys/net/ipv4/ip_forward
-```
-
-To make this change persistent, edit `/etc/sysctl.conf` and add:
-
-```bash
-net.ipv4.ip_forward = 1
-```
-
-Apply the changes:
-
-```bash
-sysctl -p
 ```
 
 ---
