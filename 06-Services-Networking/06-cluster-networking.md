@@ -12,6 +12,10 @@ A Kubernetes cluster consists of:
 
 Each node must have at least one network interface configured with a unique hostname, MAC address, and IP address.
 
+![Kubernetes Master Node Networking](../assets/images/master_node.png)
+
+The image above illustrates the essential networking setup for Kubernetes master nodes, including communication between etcd, the kube-api server, and other control plane components.
+
 ---
 
 ## Essential Ports for Kubernetes Networking
@@ -31,6 +35,10 @@ Certain ports must be open for proper cluster communication:
 ### **ETCD Ports (for High-Availability Master Nodes)**
 - **2379-2380**: Communication between etcd members
 
+![Kubernetes Worker Node Networking](../assets/images/worker.png)
+
+This image demonstrates how worker nodes communicate with the master node and how services are exposed via NodePort ranges.
+
 ---
 
 ## Setting Up Network Security
@@ -38,6 +46,10 @@ When configuring Kubernetes networking, consider:
 - **Firewall Rules**: Ensure necessary ports are open.
 - **Security Groups (Cloud Environments like AWS, Azure, GCP)**: Adjust ingress and egress rules.
 - **IP Tables**: Validate NAT and routing rules for pod communication.
+
+![Kubernetes API Communication](../assets/images/k8s-api.png)
+
+The above image depicts how API clients interact with the Kubernetes API server, allowing management commands to be executed across the cluster.
 
 ---
 
@@ -55,6 +67,10 @@ To understand networking in Kubernetes, explore:
    ```bash
    netstat -tulnp | grep kube
    ```
+
+![IP & FQDN in Kubernetes](../assets/images/ip.png)
+
+This image highlights the assignment of IP addresses and fully qualified domain names (FQDNs) to nodes within a Kubernetes cluster.
 
 ---
 
