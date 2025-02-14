@@ -10,6 +10,10 @@ The Domain Name System (DNS) is a critical component of networking that translat
 
 The `/etc/hosts` file is a local method for mapping hostnames to IP addresses. This is useful for local name resolution without relying on an external DNS server.
 
+![DNS Host Configuration](../assets/images/dns_1.png)
+
+The image above illustrates a DNS setup where multiple machines rely on local hostname resolution using the `/etc/hosts` file. This ensures hostname-to-IP mapping within a local network without querying an external DNS server.
+
 To add a hostname entry, open the file using a text editor:
 
 ```bash
@@ -33,6 +37,10 @@ ping webserver.local
 ## Configuring DNS Resolution with `/etc/resolv.conf`
 
 The `/etc/resolv.conf` file defines the system’s DNS servers. To manually configure DNS, edit the file:
+
+![DNS Resolution Setup](../assets/images/dns_3.png)
+
+The image above depicts a system where DNS resolution is managed by specifying nameservers in the `/etc/resolv.conf` file. This configuration allows the system to query external DNS servers for domain resolution.
 
 ```bash
 sudo nano /etc/resolv.conf
@@ -62,6 +70,10 @@ systemctl restart systemd-resolved
 ## Checking DNS Resolution
 
 To test DNS name resolution, use the `nslookup` or `dig` command:
+
+![Testing DNS Resolution](../assets/images/dns_2.png
+
+This image represents the process of testing DNS resolution. The system queries a DNS server to resolve domain names into IP addresses, confirming proper DNS configuration and connectivity.
 
 ```bash
 nslookup google.com
