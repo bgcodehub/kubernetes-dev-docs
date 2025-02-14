@@ -12,7 +12,7 @@ Docker provides multiple networking options to enable communication between cont
 - Cannot reach the external world or other containers.
 - Best used for isolated workloads.
 
-![None Network](file-MXBZ8QdZkSdhm2Dgndu4dj)
+![None Network](../assets/images/none.png)
 
 The image above illustrates a container running in the `none` network mode, where it is completely isolated from any external or internal networks.
 
@@ -21,7 +21,7 @@ The image above illustrates a container running in the `none` network mode, wher
 - No network isolation between the host and the container.
 - Suitable for applications needing high performance without NAT.
 
-![Host Network](file-Qst7GdPMFZF3DpgKSuQHc4)
+![Host Network](../assets/images/host.png)
 
 The image above shows a container running in the `host` network mode, where it directly binds to the host's network interfaces.
 
@@ -31,7 +31,7 @@ The image above shows a container running in the `host` network mode, where it d
 - Containers get unique private IPs (e.g., `172.17.0.0/16`).
 - Default network mode for Docker.
 
-![Bridge Network](file-VRTmjAW6ZZnAcqq6Tm5zjh)
+![Bridge Network](../assets/images/bridge.png)
 
 This image demonstrates a basic bridge network configuration, where containers communicate internally but require port mapping to be accessed externally.
 
